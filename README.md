@@ -2,7 +2,7 @@
 R Package to open QGIS project files (.qgs). For example:
 
 ```R
-import(qgs)
+require(qgs)
 
 proj = openProject("myproject.qgs")
 roads = openLayer(proj, "roads")
