@@ -1,0 +1,17 @@
+Package: qgs
+Title: Package to read qgs (QGIS project) files
+Version: 0.0-1
+Authors@R: person("Pedro R.", "Andrade", email = "pedro.andrade@inpe.br", role = c("aut", "cre"))
+Description: Opens qgs files and can read data directly into R using a simple interface
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1.9000
+License: GPLv2
+Depends:
+     R (>= 3.3.2),
+     XML,
+     rgdal
+Collate:
+    '00qgs.R'
+    'qgsProject.R'
+    'qgsLayer.R'
