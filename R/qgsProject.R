@@ -14,6 +14,14 @@ require(rgdal)
 
 qgsProject = setClass("qgsProject", slots = c(file = "character", xml = "list"))
 
+#' Open a given qgs Project
+#'
+#' Open a given QGIS project stored in a qgs file.
+#' It also creates global variables storing the layers of the project.
+#' @param file Name of the project file. It can include the complete
+#' if the file is not stored in the current directory.
+#' @param replace Replace global variables if they already exist?
+#' The default value is FALSE.
 openProject = function(file, replace = FALSE) {
 	data = xmlParse(file)
 	xml = xmlToList(data)
@@ -45,6 +53,9 @@ setMethod("show", "qgsProject", function(object){
 	cat("Layers: ", paste(layers, collapse = ", "), "\n", sep = "")
 })
 
+#' Open a given layer within a qgs project.
+#' @param object a qgsProject object.
+#' @param name Name of the layer to be opened.
 setMethod("openLayer", "qgsProject", function(object, name){
 	pos = which(sapply(proj@xml$projectlayers, function(x) x$layername) == name)
 

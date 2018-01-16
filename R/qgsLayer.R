@@ -17,6 +17,8 @@ vectorDrivers = list(
 	osm = "OSM"
 )
 
+#' Read the data from a layer to R.
+#' @param object A qgsLayer object.
 setMethod("getData", "qgsLayer", function(object){
 	source = object@source
 
