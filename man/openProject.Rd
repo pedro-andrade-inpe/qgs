@@ -17,3 +17,6 @@ The default value is FALSE.}
 Open a given QGIS project stored in a qgs file.
 It also creates global variables storing the layers of the project.
 }
+\author{
+Pedro R. Andrade, \email{pedro.andrade@inpe.br}
+}

@@ -3,15 +3,19 @@
 \docType{methods}
 \name{openLayer,qgsProject-method}
 \alias{openLayer,qgsProject-method}
-\title{Open a given layer within a qgs project.}
+\alias{openLayer}
+\title{Open a QGIS layer}
 \usage{
 \S4method{openLayer}{qgsProject}(object, name)
 }
 \arguments{
-\item{object}{a qgsProject object.}
+\item{object}{A qgsProject object.}
 
 \item{name}{Name of the layer to be opened.}
 }
 \description{
 Open a given layer within a qgs project.
+}
+\author{
+Pedro R. Andrade, \email{pedro.andrade@inpe.br}
 }

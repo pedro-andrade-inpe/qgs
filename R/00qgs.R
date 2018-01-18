@@ -13,13 +13,17 @@ qgs.env <- new.env()
     return(invisible())
 }
 
-.mkGen("openProject", function(file) standardGeneric("openProject"))
 .mkGen("openLayer", function(object, name) standardGeneric("openLayer"))
-.mkGen("getData", function(object) standardGeneric("getData"))
-.mkGen("plot",     function(x, y, ...)          standardGeneric("plot"))
+.mkGen("openProject", function(file)       standardGeneric("openProject"))
+.mkGen("readData", function(object)        standardGeneric("readData"))
+.mkGen("readDataCode", function(object)    standardGeneric("readDataCode"))
+.mkGen("show", function(object)            standardGeneric("show"))
+.mkGen("plot", function(x, y, ...)         standardGeneric("plot"))
 
 #' @importFrom graphics plot
-#' @importFrom methods isGeneric new setGeneric
+#' @importFrom sp plot
+#' @importFrom raster raster
+#' @importFrom methods isGeneric new setGeneric show
 #' @importFrom stats proj
 #' @importFrom rgdal readOGR
 #' @importFrom XML xmlParse xmlToList

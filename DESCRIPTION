@@ -1,11 +1,13 @@
 Package: qgs
 Title: Manipulate qgs (QGIS project) files
-Version: 0.0-1
+Version: 0.0-2
 Authors@R: person("Pedro R.", "Andrade", email = "pedro.andrade@inpe.br", role = c("aut", "cre"))
+Author: Pedro R. Andrade [aut, cre]
+Maintainer: Pedro R. Andrade <pedro.andrade@inpe.br>
 Description: Opens qgs files and read data directly into R using a simple interface.
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.0.1
 License: GPL-3 | file LICENSE
 Depends:
      R (>= 3.3.2),
@@ -13,6 +15,8 @@ Depends:
      rgdal,
      graphics,
      methods,
+     sp,
+     raster,
      stats
 Collate:
     '00qgs.R'
