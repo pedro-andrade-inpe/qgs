@@ -1,0 +1,85 @@
+
+R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R é um software livre e vem sem GARANTIA ALGUMA.
+Você pode redistribuí-lo sob certas circunstâncias.
+Digite 'license()' ou 'licence()' para detalhes de distribuição.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Digite 'demo()' para demonstrações, 'help()' para o sistema on-line de ajuda,
+ou 'help.start()' para abrir o sistema de ajuda em HTML no seu navegador.
+Digite 'q()' para sair do R.
+
+> require(qgs)
+Carregando pacotes exigidos: qgs
+Carregando pacotes exigidos: XML
+Carregando pacotes exigidos: rgdal
+Carregando pacotes exigidos: sp
+rgdal: version: 1.2-16, (SVN revision 701)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 2.1.3, released 2017/20/01
+ Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/rgdal/gdal
+ GDAL binary built with GEOS: FALSE 
+ Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
+ Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/rgdal/proj
+ Linking to sp version: 1.2-5 
+Carregando pacotes exigidos: raster
+QGIS project files package version 0.0-2 is now loaded.
+> 
+> file = system.file("geo/amazonia.qgs", package = "qgs")
+> 
+> proj = openProject(file, replace = TRUE)
+The following variables were created: indigenous, limit, ports, prodes, roads 
+> proj
+An object of class qgsProject (QGIS Project)
+File: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo/amazonia.qgs"
+Layers: "indigenous", "limit", "ports", "prodes", "roads"
+> 
+> limit
+An object of class qgsLayer (QGIS Layer)
+Name: "limit"
+Provider: "ogr"
+Source: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo/amazonia-limit.shp"
+> 
+> prodes
+An object of class qgsLayer (QGIS Layer)
+Name: "prodes"
+Provider: "gdal"
+Source: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo/amazonia-prodes.tif"
+> 
+> data = readData(prodes)
+> 
+> plot(data) # it is possible to plot the data...
+> plot(indigenous, border = "gray", add = T) # ... or the layer directly
+OGR data source with driver: ESRI Shapefile 
+Source: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo", layer: "amazonia-indigenous"
+with 398 features
+It has 2 fields
+> plot(roads, lwd = 2, add = T)
+OGR data source with driver: ESRI Shapefile 
+Source: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo", layer: "amazonia-roads"
+with 2396 features
+It has 1 fields
+> plot(limit, add = T)
+OGR data source with driver: ESRI Shapefile 
+Source: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo", layer: "amazonia-limit"
+with 1 features
+It has 1 fields
+Integer64 fields read as strings:  FID 
+> plot(ports, pch=18, col="yellow", add = T)
+OGR data source with driver: ESRI Shapefile 
+Source: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo", layer: "amazonia-ports"
+with 8 features
+It has 2 fields
+> 
+> 
+> proc.time()
+  usuário   sistema decorrido 
+    4.133     0.126     6.433 

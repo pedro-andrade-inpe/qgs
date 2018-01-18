@@ -1,0 +1,72 @@
+
+R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R é um software livre e vem sem GARANTIA ALGUMA.
+Você pode redistribuí-lo sob certas circunstâncias.
+Digite 'license()' ou 'licence()' para detalhes de distribuição.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Digite 'demo()' para demonstrações, 'help()' para o sistema on-line de ajuda,
+ou 'help.start()' para abrir o sistema de ajuda em HTML no seu navegador.
+Digite 'q()' para sair do R.
+
+> require(qgs)
+Carregando pacotes exigidos: qgs
+Carregando pacotes exigidos: XML
+Carregando pacotes exigidos: rgdal
+Carregando pacotes exigidos: sp
+rgdal: version: 1.2-16, (SVN revision 701)
+ Geospatial Data Abstraction Library extensions to R successfully loaded
+ Loaded GDAL runtime: GDAL 2.1.3, released 2017/20/01
+ Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/rgdal/gdal
+ GDAL binary built with GEOS: FALSE 
+ Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
+ Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/rgdal/proj
+ Linking to sp version: 1.2-5 
+Carregando pacotes exigidos: raster
+QGIS project files package version 0.0-2 is now loaded.
+> 
+> file = system.file("geo/piemonte.qgs", package = "qgs")
+> 
+> proj = openProject(file, replace = TRUE)
+The following variables were created: AreeProtette, SIC, ZPS 
+> proj
+An object of class qgsProject (QGIS Project)
+File: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo/piemonte.qgs"
+Layers: "AreeProtette", "SIC", "ZPS"
+> 
+> SIC
+An object of class qgsLayer (QGIS Layer)
+Name: "SIC"
+Provider: "WFS"
+Source: " restrictToRequestBBOX='1' srsname='EPSG:4326' typename='SIC' url='http://geomap.reteunitaria.piemonte.it/ws/gsareprot/rp-01/areeprotwfs/wfs_gsareprot_1?' version='auto' table="" sql="
+> 
+> # the code below might take some time as it
+> # downloads data from a WFS
+> plot(AreeProtette, col = "blue") # ... or the layer directly
+OGR data source with driver: WFS 
+Source: "WFS:http://geomap.reteunitaria.piemonte.it/ws/gsareprot/rp-01/areeprotwfs/wfs_gsareprot_1?", layer: "AreeProtette"
+with 180 features
+It has 25 fields
+> plot(SIC, col = "red", add = T)
+OGR data source with driver: WFS 
+Source: "WFS:http://geomap.reteunitaria.piemonte.it/ws/gsareprot/rp-01/areeprotwfs/wfs_gsareprot_1?", layer: "SIC"
+with 133 features
+It has 23 fields
+> plot(ZPS, col = "green", add = T)
+OGR data source with driver: WFS 
+Source: "WFS:http://geomap.reteunitaria.piemonte.it/ws/gsareprot/rp-01/areeprotwfs/wfs_gsareprot_1?", layer: "ZPS"
+with 51 features
+It has 23 fields
+> 
+> 
+> proc.time()
+  usuário   sistema decorrido 
+    8.488     2.737   287.232 
