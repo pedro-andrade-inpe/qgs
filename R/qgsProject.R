@@ -30,21 +30,24 @@ openProject = function(file, replace = FALSE) {
 
 		if(is.null(value) || replace)
 		{
-			name = make.names(x$layername)
+			layer = tryCatch({openLayer(proj, x$layername)}, error = function(cond){
+				warning(paste("Could not recognize provider for layer '", x$layername, "'.", sep = ""), call. = FALSE)
+				NULL
+			})
 
-			if(name == x$layername)
-				variables <<- c(variables, x$layername)
-			else
-				variables <<- c(variables, paste(name, " (for layer '", x$layername, "')", sep = ""))
+			if(!is.null(layer)){
+				name = make.names(x$layername)
 
-			assign(
-				x$layername,
-				openLayer(proj, x$layername),
-				envir = .GlobalEnv
-			)
+				if(name == x$layername)
+					variables <<- c(variables, x$layername)
+				else
+					variables <<- c(variables, paste(name, " (for layer '", x$layername, "')", sep = ""))
+
+				assign(name, layer, envir = .GlobalEnv)
+			}
 		}
 		else
-			warning(paste("Variable", x$layername, "already exists and will not be replaced. Set replace = TRUE to overwrite."))
+			warning(paste("Variable '", x$layername, "' already exists and will not be replaced. Set replace = TRUE to overwrite.", sep = ""), call. = FALSE)
 	})
 
 	cat("The following variables were created:", paste(variables, collapse = ", "), "\n")
@@ -86,8 +89,12 @@ setMethod("openLayer", "qgsProject", function(object, name){
 	}
 
 	provider = object@xml$projectlayers[[pos]]$provider
+
 	if(is.list(provider)) provider = provider$text
 
-	new("qgsLayer", project = object, name = name, source = source, provider = provider)
+	if(is.null(provider))
+		error(paste("Could not recognize provider for layer ", name, ".", sep = ""))
+	else
+		new("qgsLayer", project = object, name = name, source = source, provider = provider)
 })
 
