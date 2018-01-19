@@ -87,9 +87,10 @@ setMethod("openLayer", "qgsProject", function(object, name){
 
 	source = object@xml$projectlayers[[pos]]$datasource
 
-	if(substr(source, 1, 2) == "./"){
+	if(substr(source, 1, 2) == "./")
 		source = paste(dirname(object@file), substring(source, first = 2), sep = "")
-	}
+	else if(substr(source, 1, 3) == "../")
+		source = paste(dirname(dirname(object@file)), substring(source, first = 3), sep = "")
 
 	provider = object@xml$projectlayers[[pos]]$provider
 
