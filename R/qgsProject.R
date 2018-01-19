@@ -30,7 +30,12 @@ openProject = function(file, replace = FALSE) {
 
 		if(is.null(value) || replace)
 		{
-			variables <<- c(variables, x$layername)
+			name = make.names(x$layername)
+
+			if(name == x$layername)
+				variables <<- c(variables, x$layername)
+			else
+				variables <<- c(variables, paste(name, " (for layer '", x$layername, "')", sep = ""))
 
 			assign(
 				x$layername,
