@@ -19,6 +19,9 @@ qgsProject = setClass("qgsProject", slots = c(file = "character", xml = "list"))
 #' @author Pedro R. Andrade, \email{pedro.andrade@inpe.br}
 #' @export
 openProject = function(file, replace = FALSE) {
+	if(!file.exists(file))
+		stop("File '", file, "' does not exist.", sep = "")
+
 	data = xmlParse(file)
 	xml = xmlToList(data)
 
