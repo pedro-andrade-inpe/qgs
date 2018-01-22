@@ -26,7 +26,8 @@ openProject = function(file, replace = FALSE) {
 	xml = xmlToList(data)
 
     proj = new("qgsProject", file = file, xml = xml)
-	variables = c()
+	created = c()
+	ignored = c()
 
 	sapply(proj@xml$projectlayers, function(x){
 		value = tryCatch({get(x$layername)}, error = function(cond){})
@@ -42,18 +43,24 @@ openProject = function(file, replace = FALSE) {
 				name = make.names(x$layername)
 
 				if(name == x$layername)
-					variables <<- c(variables, x$layername)
+					created <<- c(created, paste("'", x$layername, "'", sep = ""))
 				else
-					variables <<- c(variables, paste(name, " (for layer '", x$layername, "')", sep = ""))
+					created <<- c(created, paste("'", name, "' (for layer '", x$layername, "')", sep = ""))
 
 				assign(name, layer, envir = .GlobalEnv)
 			}
 		}
 		else
-			warning(paste("Variable '", x$layername, "' already exists and will not be replaced. Set replace = TRUE to overwrite.", sep = ""), call. = FALSE)
+			ignored <<- c(ignored, paste("'", x$layername, "'", sep = ""))
 	})
 
-	cat("The following variables were created:", paste(variables, collapse = ", "), "\n")
+	if(length(ignored) == 1)
+		warning(paste("Variable ", ignored, " already exists and will not be replaced. Set replace = TRUE to overwrite it.", sep = ""), call. = FALSE)
+	else if(length(ignored) > 1)
+		warning(paste("Variables ", paste(ignored, collapse = ", ")," already exist and will not be replaced. Set replace = TRUE to overwrite them.", sep = ""), call. = FALSE)
+
+	if(length(created) > 0)
+		cat("The following variables were created:", paste(created, collapse = ", "), "\n")
 
 	proj
 }
