@@ -42,7 +42,7 @@ qgs_codeReadGDAL = function(layer, source){
 qgs_readOGR = function(source){
 	extension = substr(source, nchar(source) - 3 + 1, nchar(source))
 
-	readOGR(dsn = dirname(source), layer = tools::file_path_sans_ext(basename(source)))
+	readOGR(dsn = dirname(source), layer = tools::file_path_sans_ext(basename(source)), verbose = FALSE)
 }
 
 qgs_codeReadOGR = function(layer, source){
@@ -52,7 +52,7 @@ qgs_codeReadOGR = function(layer, source){
 		layer,
 		" = readOGR(dsn = \"", dirname(source),
 		"\", layer = \"", tools::file_path_sans_ext(basename(source)),
-		"\")\n",
+		"\", verbose = FALSE)\n",
 		sep = ""
 	)
 }
