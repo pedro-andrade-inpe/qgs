@@ -1,0 +1,129 @@
+---
+output:
+    pdf_document:
+        fig_caption: true
+        latex_engine: pdflatex
+title: "qgs: Handling QGIS Project Files"
+author:
+- Pedro R. Andrade
+abstract: "This package provides a simple solution to the data interface between QGIS and R. It allows users to handle QGIS project files directly, simplifying the way one can read geospatial data into R."
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+vignette: >
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteIndexEntry{qgs: Handling QGIS Project Files}
+    %\VignetteEncoding{UTF-8}
+---
+```{r, include = FALSE}
+library(qgs)
+```
+
+# Introduction 
+
+This package allows users to handle QGIS project files, with extension `.qgs`.
+These files store a set of layers, pointing each of them to a data source,
+like a shapefile, a tiff, or a WFS (Web Feature Service). Given a project
+created in QGIS, it is possible to read data directly into R using
+only the name of the layers, without worrying about where the data
+is stored and which R packages, functions, and parameters are necessary
+to read the data. It is also possible to generate the source code to read
+the data directly from the data source.
+
+# Project and Layer
+
+Let us start by defining where the qgs file is located as an R variable.
+In this tutorial, I will use a file available within qgs package.
+
+```{r}
+file = system.file("geo/amazonia.qgs", package = "qgs")
+```
+
+The function to open a given QGIS project is called `openProject()`.
+It gets as argument a string with the file to be opened and
+returns an object of type `qgsProject`.
+
+```{r}
+proj = openProject(file)
+```
+
+When the project is opened, `openProject()` also declares
+all the layers of the project as R objects if there
+are no objects with such names in the global environment. In the
+code above, five variables were declared.
+If you print the variable storing the project, it shows
+the available layers again:
+
+```{r}
+proj
+```
+
+Each declared layer belongs to class `qgsLayer`. Two
+of them are shown below:
+
+```{r}
+limit
+prodes
+```
+
+If the layers already exist as variables, they will not be
+declared. For example, if we open the same project again, we
+get the following output:
+
+```{r}
+proj = openProject(file)
+```
+
+The argument `replace` allows objects to be replaced.
+In this case, no warning will be shown.
+
+```{r}
+proj = openProject(file, replace = TRUE)
+```
+
+# Reading data
+
+It is possible to read the data from a layer using `readData`. Note that this is the
+only function to read data of the package. It recognizes the data
+source and uses the proper function internally to read the data.
+
+```{r}
+data = readData(prodes)
+class(data)
+
+plot(data)
+```
+
+If one whants to know how to read the data from the data source of the layer
+without using the project file, it is possible to use `readDataCode()` that
+gets the layer as argument in the same way of `readData()`. This function
+generates code using the complete path for files (QGIS sometimes stores
+relative paths, which work properly only if the current directory of R
+is the same directory of the qgs file). This function is also useful
+when one wants to set additional arguments to the function call to 
+read the data in a proper way.
+
+```{r}
+readDataCode(prodes)
+```
+
+Finally, it is also possible to plot the data directly from the layer,
+such as in the example below:
+
+```{r}
+plot(prodes)
+plot(indigenous, border = "gray", add = T)
+plot(roads, lwd = 2, add = T)
+plot(limit, add = T)
+plot(ports, pch=18, col="yellow", add = T)
+```
+
+# Final remarks
+
+More is still to be implemented. Some of future functionalities include:
+
+* Adding new layers to qgs files from the R side;
+* Allow reading only attributes (without geometry) whenever possible;
+* Handling colors and styles;
+* Finding and updating the recent qgs projects visible in QGIS.
+
+If you have suggestions please visit the [GitHup page](https://github.com/pedro-andrade-inpe/qgs).
+
