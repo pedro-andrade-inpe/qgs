@@ -89,10 +89,14 @@ source and uses the proper function internally to read the data.
 data = readData(prodes)
 class(data)
 
+lines = readData(roads)
+class(lines)
+
 plot(data)
+plot(lines, add = T)
 ```
 
-If one whants to know how to read the data from the data source of the layer
+If one wants to know how to read the data from the data source of the layer
 without using the project file, it is possible to use `readDataCode()` that
 gets the layer as argument in the same way of `readData()`. This function
 generates code using the complete path for files (QGIS sometimes stores
@@ -114,6 +118,36 @@ plot(indigenous, border = "gray", add = T)
 plot(roads, lwd = 2, add = T)
 plot(limit, add = T)
 plot(ports, pch=18, col="yellow", add = T)
+```
+
+# Another project
+
+The last example uses WFS data stored in a project. In the same way
+of the first example, this one uses a project stored in package qgs.
+
+```{r}
+file = system.file("geo/piemonte.qgs", package = "qgs")
+
+proj = openProject(file, replace = TRUE)
+
+# the code below might take some time as it downloads data from a WFS
+areeprotette = readData(AreeProtette)
+sic = readData(SIC)
+zps = readData(ZPS)
+```
+The following code plots all the layers available within piemonte project.
+
+```{r}
+plot(areeprotette, col = "blue")
+plot(sic, col = "red", add = T)
+plot(zps, col = "green", add = T)
+```
+
+To read data from a WMS, it is necessary to use `readOGR()`, as we can see
+using `readDataCode()`.
+
+```{r}
+readDataCode(SIC)
 ```
 
 # Final remarks
