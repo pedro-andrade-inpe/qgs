@@ -107,7 +107,7 @@ setMethod("openLayer", "qgsProject", function(object, name){
 	if(is.list(provider)) provider = provider$text
 
 	if(is.null(provider))
-		error(paste("Could not recognize provider for layer ", name, ".", sep = ""))
+		stop(paste("Could not recognize provider for layer ", name, ".", sep = ""))
 	else
 		new("qgsLayer", project = object, name = name, source = source, provider = provider)
 })

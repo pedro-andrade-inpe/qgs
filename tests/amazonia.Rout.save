@@ -36,7 +36,7 @@ QGIS project files package version 0.0-2 is now loaded.
 > file = system.file("geo/amazonia.qgs", package = "qgs")
 > 
 > proj = openProject(file, replace = TRUE)
-The following variables were created: indigenous, limit, ports, prodes, roads 
+The following variables were created: 'indigenous', 'limit', 'ports', 'prodes', 'roads' 
 > proj
 An object of class qgsProject (QGIS Project)
 File: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo/amazonia.qgs"
@@ -58,26 +58,9 @@ Source: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo/
 > 
 > plot(data) # it is possible to plot the data...
 > plot(indigenous, border = "gray", add = T) # ... or the layer directly
-OGR data source with driver: ESRI Shapefile 
-Source: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo", layer: "amazonia-indigenous"
-with 398 features
-It has 2 fields
 > plot(roads, lwd = 2, add = T)
-OGR data source with driver: ESRI Shapefile 
-Source: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo", layer: "amazonia-roads"
-with 2396 features
-It has 1 fields
 > plot(limit, add = T)
-OGR data source with driver: ESRI Shapefile 
-Source: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo", layer: "amazonia-limit"
-with 1 features
-It has 1 fields
-Integer64 fields read as strings:  FID 
 > plot(ports, pch=18, col="yellow", add = T)
-OGR data source with driver: ESRI Shapefile 
-Source: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo", layer: "amazonia-ports"
-with 8 features
-It has 2 fields
 > 
 > 
 > proc.time()

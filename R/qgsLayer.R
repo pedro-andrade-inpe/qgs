@@ -62,7 +62,7 @@ qgs_readWMS = function(source){
 	url = strsplit(sourcesplit[[1]][5], "'")[[1]][2]
 	layer = strsplit(sourcesplit[[1]][4], "'")[[1]][2]
 
-	readOGR(paste("WFS:", url, sep = ""), layer)
+	readOGR(paste("WFS:", url, sep = ""), layer, verbose = FALSE)
 }
 
 qgs_codeReadWMS = function(layer, source){
@@ -74,7 +74,7 @@ qgs_codeReadWMS = function(layer, source){
 		layer,
 		" = readOGR(dsn = \"WFS:", url,
 		"\", layer = \"", layer,
-		"\")\n",
+		"\", verbose = FALSE)\n",
 		sep = ""
 	)
 }

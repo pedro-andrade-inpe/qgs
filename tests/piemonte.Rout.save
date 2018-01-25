@@ -36,7 +36,7 @@ QGIS project files package version 0.0-2 is now loaded.
 > file = system.file("geo/piemonte.qgs", package = "qgs")
 > 
 > proj = openProject(file, replace = TRUE)
-The following variables were created: AreeProtette, SIC, ZPS 
+The following variables were created: 'AreeProtette', 'SIC', 'ZPS' 
 > proj
 An object of class qgsProject (QGIS Project)
 File: "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/qgs/geo/piemonte.qgs"
@@ -51,20 +51,8 @@ Source: " restrictToRequestBBOX='1' srsname='EPSG:4326' typename='SIC' url='http
 > # the code below might take some time as it
 > # downloads data from a WFS
 > plot(AreeProtette, col = "blue") # ... or the layer directly
-OGR data source with driver: WFS 
-Source: "WFS:http://geomap.reteunitaria.piemonte.it/ws/gsareprot/rp-01/areeprotwfs/wfs_gsareprot_1?", layer: "AreeProtette"
-with 180 features
-It has 25 fields
 > plot(SIC, col = "red", add = T)
-OGR data source with driver: WFS 
-Source: "WFS:http://geomap.reteunitaria.piemonte.it/ws/gsareprot/rp-01/areeprotwfs/wfs_gsareprot_1?", layer: "SIC"
-with 133 features
-It has 23 fields
 > plot(ZPS, col = "green", add = T)
-OGR data source with driver: WFS 
-Source: "WFS:http://geomap.reteunitaria.piemonte.it/ws/gsareprot/rp-01/areeprotwfs/wfs_gsareprot_1?", layer: "ZPS"
-with 51 features
-It has 23 fields
 > 
 > 
 > proc.time()
