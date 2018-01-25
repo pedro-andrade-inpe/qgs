@@ -16,9 +16,10 @@ qgsProject = setClass("qgsProject", slots = c(file = "character", xml = "list"))
 #' if the file is not stored in the current directory.
 #' @param replace Replace global variables if they already exist?
 #' The default value is FALSE.
+#' @param declare Declare the layers as variables? The default value is TRUE.
 #' @author Pedro R. Andrade, \email{pedro.andrade@inpe.br}
 #' @export
-openProject = function(file, replace = FALSE) {
+openProject = function(file, replace = FALSE, declare = TRUE) {
 	if(!file.exists(file))
 		stop("File '", file, "' does not exist.", sep = "")
 
@@ -28,6 +29,8 @@ openProject = function(file, replace = FALSE) {
     proj = new("qgsProject", file = file, xml = xml)
 	created = c()
 	ignored = c()
+
+	if(!declare) return(proj)
 
 	sapply(proj@xml$projectlayers, function(x){
 		value = tryCatch({get(x$layername)}, error = function(cond){})

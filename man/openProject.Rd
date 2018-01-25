@@ -4,7 +4,7 @@
 \alias{openProject}
 \title{Open a given qgs Project}
 \usage{
-openProject(file, replace = FALSE)
+openProject(file, replace = FALSE, declare = TRUE)
 }
 \arguments{
 \item{file}{Name of the project file. It can include the complete
@@ -12,6 +12,8 @@ if the file is not stored in the current directory.}
 
 \item{replace}{Replace global variables if they already exist?
 The default value is FALSE.}
+
+\item{declare}{Declare the layers as variables? The default value is TRUE.}
 }
 \description{
 Open a given QGIS project stored in a qgs file.
